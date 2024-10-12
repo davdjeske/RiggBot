@@ -48,7 +48,7 @@ public class MessageListener extends ListenerAdapter {
                 }
             }
             if (isReplaced) {
-                message.reply(content).queue();
+                message.reply(content).setSuppressedNotifications(true).queue();
                 message.suppressEmbeds(true).queue();
             }
         }
