@@ -13,9 +13,16 @@ public class GeneralCommands {
     public static void replaceUrlCommand(SlashCommandInteractionEvent event) {
         String domain = event.getOption("domain").getAsString();
         String replacement = event.getOption("replacement").getAsString();
-        MessageListener.getDomains().put(domain, replacement);
-        if (MessageListener.saveUrlReplacements()) {
-            event.reply("Urls with '" + domain + "' will now be replaced with '" + replacement + "'").queue();
+        if (domain.equals(replacement)) {
+            MessageListener.getDomains().remove(domain);
+            if (MessageListener.saveUrlReplacements()) {
+                event.reply("Urls with '" + domain + "' will no longer be replaced").queue();
+            }
+        } else {
+            MessageListener.getDomains().put(domain, replacement);
+            if (MessageListener.saveUrlReplacements()) {
+                event.reply("Urls with '" + domain + "' will now be replaced with '" + replacement + "'").queue();
+            }
         }
     }
 }
